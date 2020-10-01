@@ -33,6 +33,26 @@ class MainAdapter(private val handler: ClickHandler) :
         }
     }
 
+    private val selectionIds = ArrayList<Int>()
+
+    fun toggleSelection(pos: Int) {
+        val id = getItem(pos).id
+        if (selectionIds.contains(id))
+            selectionIds.remove(id)
+        else
+            selectionIds.add(id)
+        notifyDataSetChanged()
+    }
+
+    fun getSelection(): List<Int> {
+        return selectionIds
+    }
+
+    fun resetSelection() {
+        selectionIds.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.list_item_main, parent, false)
@@ -48,11 +68,14 @@ class MainAdapter(private val handler: ClickHandler) :
         fun bind(mahasiswa: Mahasiswa) {
             itemView.nimTextView.text = mahasiswa.nim
             itemView.namaTextView.text = mahasiswa.nama
-            itemView.setOnLongClickListener { handler.onLongClick() }
+            itemView.isSelected = selectionIds.contains(mahasiswa.id)
+            itemView.setOnClickListener { handler.onClick(adapterPosition, mahasiswa) }
+            itemView.setOnLongClickListener { handler.onLongClick(adapterPosition) }
         }
     }
 
     interface ClickHandler {
-        fun onLongClick() : Boolean
+        fun onClick(position: Int, mahasiswa: Mahasiswa)
+        fun onLongClick(position: Int) : Boolean
     }
 }
