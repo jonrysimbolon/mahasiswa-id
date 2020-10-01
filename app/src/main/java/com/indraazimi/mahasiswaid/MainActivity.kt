@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.ViewModelProvider
@@ -35,9 +36,24 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     }
 
     private val handler = object : MainAdapter.ClickHandler {
-        override fun onLongClick(): Boolean {
+        override fun onClick(position: Int, mahasiswa: Mahasiswa) {
+            if (actionMode != null) {
+                myAdapter.toggleSelection(position)
+                if (myAdapter.getSelection().isEmpty())
+                    actionMode?.finish()
+                else
+                    actionMode?.invalidate()
+                return
+            }
+
+            val message = getString(R.string.mahasiswa_klik, mahasiswa.nama)
+            Toast.makeText(this@MainActivity, message, Toast.LENGTH_LONG).show()
+        }
+
+        override fun onLongClick(position: Int): Boolean {
             if (actionMode != null) return false
 
+            myAdapter.toggleSelection(position)
             actionMode = startSupportActionMode(actionModeCallback)
             return true
         }
@@ -58,11 +74,13 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
         }
 
         override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+            mode?.title = myAdapter.getSelection().size.toString()
             return true
         }
 
         override fun onDestroyActionMode(mode: ActionMode?) {
             actionMode = null
+            myAdapter.resetSelection()
         }
     }
 
@@ -90,7 +108,7 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     }
 
     private fun deleteData() {
-        Log.d("MainActivity", "Delete clicked!")
+        Log.d("MainActivity", "Delete clicked: " + myAdapter.getSelection())
         actionMode?.finish()
     }
 }

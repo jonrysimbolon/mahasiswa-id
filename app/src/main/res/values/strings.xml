@@ -17,5 +17,6 @@
     <string name="nim_wajib_diisi">NIM wajib diisi</string>
     <string name="nim_harus_10chars">NIM harus 10 karakter</string>
     <string name="nama_wajib_diisi">Nama wajib diisi</string>
+    <string name="mahasiswa_klik">%1$s diklik!</string>
     <string name="hapus">Hapus</string>
 </resources>
