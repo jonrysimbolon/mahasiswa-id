@@ -14,4 +14,7 @@
     <string name="nama">Nama</string>
     <string name="simpan">Simpan</string>
     <string name="batal">Batal</string>
+    <string name="nim_wajib_diisi">NIM wajib diisi</string>
+    <string name="nim_harus_10chars">NIM harus 10 karakter</string>
+    <string name="nama_wajib_diisi">Nama wajib diisi</string>
 </resources>
