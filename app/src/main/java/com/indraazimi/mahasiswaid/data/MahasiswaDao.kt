@@ -9,13 +9,11 @@
 
 package com.indraazimi.mahasiswaid.data
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.Dao
+import androidx.room.Insert
 
-@Entity
-data class Mahasiswa(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val nim: String,
-    val nama: String
-)
+@Dao
+interface MahasiswaDao {
+    @Insert
+    fun insertData(mahasiswa: Mahasiswa)
+}
