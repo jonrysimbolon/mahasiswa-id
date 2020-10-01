@@ -14,14 +14,18 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener {
-            Log.d("MainActivity", "FAB clicked!")
+            MainDialog().show(supportFragmentManager, "MainDialog")
         }
+    }
+
+    override fun processDialog() {
+        Log.d("MainActivity", "Dialog button clicked!")
     }
 }
