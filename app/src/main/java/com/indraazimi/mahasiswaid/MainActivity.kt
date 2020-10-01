@@ -10,12 +10,19 @@
 package com.indraazimi.mahasiswaid
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.indraazimi.mahasiswaid.data.Mahasiswa
+import com.indraazimi.mahasiswaid.data.MahasiswaDb
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
+
+    private val viewModel: MainViewModel by lazy {
+        val dataSource = MahasiswaDb.getInstance(this).dao
+        val factory = MainViewModelFactory(dataSource)
+        ViewModelProvider(this, factory).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +34,6 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     }
 
     override fun processDialog(mahasiswa: Mahasiswa) {
-        Log.d("MainActivity", mahasiswa.toString())
+        viewModel.insertData(mahasiswa)
     }
 }
