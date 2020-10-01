@@ -19,6 +19,8 @@ import kotlinx.coroutines.withContext
 
 class MainViewModel(private val db : MahasiswaDao) : ViewModel() {
 
+    val data = db.getData()
+
     fun insertData(mahasiswa: Mahasiswa) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

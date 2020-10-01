@@ -12,6 +12,8 @@ package com.indraazimi.mahasiswaid
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.indraazimi.mahasiswaid.data.Mahasiswa
 import com.indraazimi.mahasiswaid.data.MahasiswaDb
 import com.indraazimi.mahasiswaid.databinding.ActivityMainBinding
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     }
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var myAdapter: MainAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,15 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
         binding.fab.setOnClickListener {
             MainDialog().show(supportFragmentManager, "MainDialog")
         }
+
+        myAdapter = MainAdapter()
+        with(binding.recyclerView) {
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+            setHasFixedSize(true)
+            adapter = myAdapter
+        }
+
+        viewModel.data.observe(this, { myAdapter.submitList(it) })
     }
 
     override fun processDialog(mahasiswa: Mahasiswa) {
