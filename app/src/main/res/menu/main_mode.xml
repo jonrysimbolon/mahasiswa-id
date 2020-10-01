@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2020 Indra Azimi. All rights reserved.
+  ~
+  ~  Dibuat untuk kelas Pemrograman untuk Perangkat Bergerak 2.
+  ~  Dilarang melakukan penggandaan dan atau komersialisasi,
+  ~  sebagian atau seluruh bagian, baik cetak maupun elektronik
+  ~  terhadap project ini tanpa izin pemilik hak cipta.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_delete"
+        android:icon="@drawable/ic_delete_white_24dp"
+        android:title="@string/hapus"
+        app:showAsAction="always" />
+</menu>
