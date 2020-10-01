@@ -17,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.indraazimi.mahasiswaid.data.Mahasiswa
 import com.indraazimi.mahasiswaid.databinding.ItemMainBinding
 
-class MainAdapter : ListAdapter<Mahasiswa, MainAdapter.ViewHolder>(DIFF_CALLBACK) {
+class MainAdapter(
+    private val handler: ClickHandler
+) : ListAdapter<Mahasiswa, MainAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Mahasiswa>() {
@@ -48,6 +50,11 @@ class MainAdapter : ListAdapter<Mahasiswa, MainAdapter.ViewHolder>(DIFF_CALLBACK
         fun bind(mahasiswa: Mahasiswa) {
             binding.nimTextView.text = mahasiswa.nim
             binding.namaTextView.text = mahasiswa.nama
+            itemView.setOnLongClickListener { handler.onLongClick() }
         }
+    }
+
+    interface ClickHandler {
+        fun onLongClick() : Boolean
     }
 }
