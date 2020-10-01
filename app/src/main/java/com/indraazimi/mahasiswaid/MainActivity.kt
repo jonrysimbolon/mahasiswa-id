@@ -10,10 +10,11 @@
 package com.indraazimi.mahasiswaid
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.indraazimi.mahasiswaid.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -21,5 +22,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.fab.setOnClickListener {
+            MainDialog().show(supportFragmentManager, "MainDialog")
+        }
+    }
+
+    override fun processDialog() {
+        Log.d("MainActivity", "Dialog button clicked!")
     }
 }

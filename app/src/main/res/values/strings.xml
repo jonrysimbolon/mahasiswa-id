@@ -9,4 +9,9 @@
 
 <resources>
     <string name="app_name">Mahasiswa ID</string>
+    <string name="tambah_mahasiswa">Tambah Mahasiswa</string>
+    <string name="nim">NIM</string>
+    <string name="nama">Nama</string>
+    <string name="simpan">Simpan</string>
+    <string name="batal">Batal</string>
 </resources>
