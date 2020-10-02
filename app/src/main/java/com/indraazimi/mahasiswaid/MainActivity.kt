@@ -12,6 +12,7 @@ package com.indraazimi.mahasiswaid
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -97,7 +98,10 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
         recyclerView.addItemDecoration(itemDecor)
         recyclerView.adapter = adapter
 
-        viewModel.data.observe(this, Observer { adapter.submitList(it) })
+        viewModel.data.observe(this, Observer {
+            adapter.submitList(it)
+            emptyView.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+        })
     }
 
     override fun processDialog(mahasiswa: Mahasiswa) {
