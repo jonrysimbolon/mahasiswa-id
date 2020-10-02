@@ -21,4 +21,7 @@ interface MahasiswaDao {
 
     @Query("SELECT * FROM mahasiswa ORDER BY nim")
     fun getData(): LiveData<List<Mahasiswa>>
+
+    @Query("DELETE FROM mahasiswa WHERE id IN (:ids)")
+    fun deleteData(ids: List<Int>)
 }
