@@ -10,10 +10,10 @@
 package com.indraazimi.mahasiswaid
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.lifecycle.Observer
@@ -84,11 +84,6 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
         }
     }
 
-    private fun deleteData() {
-        Log.d("MainActivity", "Delete clicked: " + adapter.getSelection())
-        actionMode?.finish()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -107,5 +102,19 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
 
     override fun processDialog(mahasiswa: Mahasiswa) {
         viewModel.insertData(mahasiswa)
+    }
+
+    private fun deleteData() {
+        val builder = AlertDialog.Builder(this)
+            .setMessage(R.string.pesan_hapus)
+            .setPositiveButton(R.string.hapus) { _, _ ->
+                viewModel.deleteData(adapter.getSelection())
+                actionMode?.finish()
+            }
+            .setNegativeButton(R.string.batal) { dialog, _ ->
+                dialog.cancel()
+                actionMode?.finish()
+            }
+        builder.show()
     }
 }
