@@ -11,10 +11,13 @@ package com.indraazimi.mahasiswaid.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.database.FirebaseDatabase
 
 class MahasiswaDb private constructor(): MahasiswaDao {
 
     companion object {
+        private const val PATH = "mahasiswa"
+
         @Volatile
         private var INSTANCE: MahasiswaDb? = null
 
@@ -33,8 +36,10 @@ class MahasiswaDb private constructor(): MahasiswaDao {
     // Tidak seperti Room yang otomatis membuatkan implementasi Dao,
     // di Firebase kita harus membuat implementasi Dao sendiri.
 
-    override fun insertData(mahasiswa: Mahasiswa) {
+    private val database = FirebaseDatabase.getInstance().getReference(PATH)
 
+    override fun insertData(mahasiswa: Mahasiswa) {
+        database.push().setValue(mahasiswa)
     }
 
     override fun getData(): LiveData<List<Mahasiswa>> {
