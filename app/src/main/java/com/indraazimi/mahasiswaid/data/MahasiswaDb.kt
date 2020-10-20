@@ -48,7 +48,7 @@ class MahasiswaDb private constructor(): MahasiswaDao {
         return data
     }
 
-    override fun deleteData(ids: List<Int>) {
+    override fun deleteData(ids: List<String>) {
 
     }
 }
