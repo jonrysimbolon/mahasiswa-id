@@ -31,8 +31,10 @@ class MainActivity : AppCompatActivity(), MainDialog.DialogListener {
     private var actionMode: ActionMode? = null
 
     private val viewModel: MainViewModel by lazy {
-        val dataSource = MahasiswaDb.getInstance(this).dao
-        val factory = MainViewModelFactory(dataSource)
+        // Berkat penggunaan pattern MVVM, ketika kita menghilangkan Room,
+        // kode yang berubah sebagian besar ada di data layer (package data).
+        // Perubahan terkait UI code cukup dilakukan di satu baris ini saja.
+        val factory = MainViewModelFactory(MahasiswaDb.getInstance())
         ViewModelProvider(this, factory).get(MainViewModel::class.java)
     }
 
