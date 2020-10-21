@@ -6,6 +6,10 @@ Custom Dialog                                        | Tampilan Data            
 -----------------------------------------------------|------------------------------------------------------|---------------------------------------------------
 <img src="screenshots/dialog-tambah.png" width="200">|<img src="screenshots/list-mahasiswa.png" width="200">|<img src="screenshots/action-mode.png" width="200">
 
+Aplikasi ini menggunakan Room untuk data persistence. Terdapat pengembangan aplikasi ini di branch lain:
+- Branch testing: versi project dengan pengujian otomatis (instrumented testing) menggunakan Espresso
+- Branch firebase: versi project yang menggunakan Firebase Realtime Database sebagai persistence
+
 Punya pertanyaan atau masukan? Silahkan disampaikan melalui issue repository ini.
 
 ## Lisensi
