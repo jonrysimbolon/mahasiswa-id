@@ -48,6 +48,8 @@ class MahasiswaDb private constructor(): MahasiswaDao {
     }
 
     override fun deleteData(ids: List<String>) {
-
+        for (id in ids) {
+            database.child(id).removeValue()
+        }
     }
 }
