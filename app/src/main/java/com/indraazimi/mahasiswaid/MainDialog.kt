@@ -32,7 +32,7 @@ class MainDialog : DialogFragment() {
             setView(view)
             setPositiveButton(R.string.simpan) { _, _ ->
                 val mahasiswa = getData(view) ?: return@setPositiveButton
-                val listener = requireActivity() as DialogListener
+                val listener = targetFragment as DialogListener
                 listener.processDialog(mahasiswa)
             }
             setNegativeButton(R.string.batal) { _, _ -> dismiss() }
