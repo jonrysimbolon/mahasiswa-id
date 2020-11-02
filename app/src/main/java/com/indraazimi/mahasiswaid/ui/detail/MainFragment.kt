@@ -93,6 +93,9 @@ class MainFragment : Fragment(), MainDialog.DialogListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fab.setOnClickListener {
+            // Klik pada FAB akan membuat aplikasi crash, sebab MainFragment
+            // dan MainDialog kini berada di 2 alam yang berbeda. Kita akan
+            // menyelesaikan masalah ini di langkah selanjutnya.
             val dialog = MainDialog()
             dialog.setTargetFragment(this, 101)
             dialog.show(requireActivity().supportFragmentManager, "MainDialog")
@@ -103,7 +106,7 @@ class MainFragment : Fragment(), MainDialog.DialogListener {
         recyclerView.addItemDecoration(itemDecor)
         recyclerView.adapter = adapter
 
-        viewModel.data.observe(this, Observer {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             emptyView.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
