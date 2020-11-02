@@ -7,7 +7,7 @@
  *  terhadap project ini tanpa izin pemilik hak cipta.
  */
 
-package com.indraazimi.mahasiswaid
+package com.indraazimi.mahasiswaid.ui.detail
 
 import android.os.Bundle
 import android.view.*
@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.indraazimi.mahasiswaid.R
 import com.indraazimi.mahasiswaid.data.Mahasiswa
 import com.indraazimi.mahasiswaid.data.MahasiswaDb
 import kotlinx.android.synthetic.main.fragment_main.*
