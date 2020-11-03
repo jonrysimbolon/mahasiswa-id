@@ -107,7 +107,7 @@ class MainFragment : Fragment() {
         recyclerView.addItemDecoration(itemDecor)
         recyclerView.adapter = adapter
 
-        viewModel.data.observe(viewLifecycleOwner, Observer {
+        viewModel.getData(args.kelas).observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             emptyView.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
