@@ -32,7 +32,7 @@ class KelasFragment : Fragment() {
             android.R.layout.simple_list_item_1, android.R.id.text1, kelas)
         listView.setOnItemClickListener { _, _, position, _ ->
             findNavController().navigate(
-                R.id.action_kelasFragment_to_mainFragment
+                KelasFragmentDirections.actionKelasFragmentToMainFragment(kelas[position])
             )
         }
     }

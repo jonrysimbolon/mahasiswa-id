@@ -94,8 +94,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val args = MainFragmentArgs.fromBundle(requireArguments())
+
         fab.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_mainDialog)
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToMainDialog(args.kelas)
+            )
         }
 
         adapter = MainAdapter(handler)
