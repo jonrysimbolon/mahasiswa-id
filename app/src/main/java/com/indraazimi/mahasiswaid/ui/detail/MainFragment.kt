@@ -17,7 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.indraazimi.mahasiswaid.R
@@ -25,15 +26,16 @@ import com.indraazimi.mahasiswaid.data.Mahasiswa
 import com.indraazimi.mahasiswaid.data.MahasiswaDb
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainFragment : Fragment(), MainDialog.DialogListener {
+class MainFragment : Fragment() {
 
     private lateinit var adapter : MainAdapter
     private var actionMode: ActionMode? = null
 
-    private val viewModel: MainViewModel by lazy {
-        val dataSource = MahasiswaDb.getInstance(requireContext()).dao
-        val factory = MainViewModelFactory(dataSource)
-        ViewModelProvider(this, factory).get(MainViewModel::class.java)
+    // MainFragment dan MainDialog akan menggunakan shared ViewModel,
+    // sehingga di sini MainViewModel kita buat menggunakan Nav Graph.
+    // DialogListener menjadi tidak diperlukan lagi dan dapat dihapus.
+    private val viewModel: MainViewModel by navGraphViewModels(R.id.main) {
+        MainViewModelFactory(MahasiswaDb.getInstance(requireContext()).dao)
     }
 
     private val handler = object : MainAdapter.ClickHandler {
@@ -93,12 +95,7 @@ class MainFragment : Fragment(), MainDialog.DialogListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fab.setOnClickListener {
-            // Klik pada FAB akan membuat aplikasi crash, sebab MainFragment
-            // dan MainDialog kini berada di 2 alam yang berbeda. Kita akan
-            // menyelesaikan masalah ini di langkah selanjutnya.
-            val dialog = MainDialog()
-            dialog.setTargetFragment(this, 101)
-            dialog.show(requireActivity().supportFragmentManager, "MainDialog")
+            findNavController().navigate(R.id.action_mainFragment_to_mainDialog)
         }
 
         adapter = MainAdapter(handler)
@@ -110,10 +107,6 @@ class MainFragment : Fragment(), MainDialog.DialogListener {
             adapter.submitList(it)
             emptyView.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
-    }
-
-    override fun processDialog(mahasiswa: Mahasiswa) {
-        viewModel.insertData(mahasiswa)
     }
 
     private fun deleteData() {

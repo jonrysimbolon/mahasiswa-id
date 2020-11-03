@@ -18,10 +18,16 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.navGraphViewModels
 import com.indraazimi.mahasiswaid.R
 import com.indraazimi.mahasiswaid.data.Mahasiswa
+import com.indraazimi.mahasiswaid.data.MahasiswaDb
 
 class MainDialog : DialogFragment() {
+
+    private val viewModel: MainViewModel by navGraphViewModels(R.id.main) {
+        MainViewModelFactory(MahasiswaDb.getInstance(requireContext()).dao)
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = LayoutInflater.from(requireContext())
@@ -33,8 +39,7 @@ class MainDialog : DialogFragment() {
             setView(view)
             setPositiveButton(R.string.simpan) { _, _ ->
                 val mahasiswa = getData(view) ?: return@setPositiveButton
-                val listener = targetFragment as DialogListener
-                listener.processDialog(mahasiswa)
+                viewModel.insertData(mahasiswa)
             }
             setNegativeButton(R.string.batal) { _, _ -> dismiss() }
         }
@@ -71,9 +76,5 @@ class MainDialog : DialogFragment() {
         val toast = Toast.makeText(requireContext(), messageResId, Toast.LENGTH_LONG)
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
-    }
-
-    interface DialogListener {
-        fun processDialog(mahasiswa: Mahasiswa)
     }
 }
