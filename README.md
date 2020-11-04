@@ -9,6 +9,7 @@ Custom Dialog                                        | Tampilan Data            
 Aplikasi ini menggunakan Room untuk data persistence. Terdapat pengembangan aplikasi ini di branch lain:
 - Branch testing: versi project dengan pengujian otomatis (instrumented testing) menggunakan Espresso
 - Branch firebase: versi project yang menggunakan Firebase Realtime Database sebagai persistence
+- Branch two-pane: versi project dengan navigasi master-detail dan two-pane layout di tablet
 
 Punya pertanyaan atau masukan? Silahkan disampaikan melalui issue repository ini.
 
