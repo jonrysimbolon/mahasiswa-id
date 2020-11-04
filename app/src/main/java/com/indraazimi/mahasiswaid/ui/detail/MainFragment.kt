@@ -113,6 +113,14 @@ class MainFragment : Fragment() {
         })
     }
 
+    override fun onDestroy() {
+        // Di tablet, pengguna bisa saja memilih data mahasiswa,
+        // action mode muncul, lalu dia pindah ke kelas lain..
+        // Agar action mode nya hilang, kita finish di sini.
+        actionMode?.finish()
+        super.onDestroy()
+    }
+
     private fun deleteData() {
         val builder = AlertDialog.Builder(requireContext())
             .setMessage(R.string.pesan_hapus)
